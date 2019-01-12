@@ -33,7 +33,6 @@
 
 # Build direcoty
 build
-src
 
 # Backup files
 *~

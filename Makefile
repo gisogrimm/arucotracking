@@ -8,15 +8,13 @@ LDLIBS += $(PKGLIBS)
 TARGETS = calibrate_camera_charuco calibrate_camera		\
 	create_board_charuco create_board create_diamond	\
 	create_marker detect_board_charuco detect_board		\
-	detect_diamonds detect_markers detector_params.yml
+	detect_diamonds detect_markers detect_and_print_markers	\
+	detector_params.yml
 
 all: build src $(patsubst %,build/%,$(TARGETS))
 
 build:
 	mkdir -p build
-
-src:
-	mkdir -p src
 
 build/%: src/%.cc
 	$(CXX) $(CXXFLAGS) $< $(LDFLAGS) $(LDLIBS) -o $@
@@ -30,8 +28,11 @@ src/%: /usr/share/doc/opencv-doc/examples/aruco/%.gz
 src/%: /usr/share/doc/opencv-doc/examples/aruco/%
 	cat $< > $@
 
+build/%: src/%
+	cp $< $@
+
 dep:
 	sudo apt-get install build-essential opencv-doc libopencv-dev
 
 clean:
-	rm -Rf build src
+	rm -Rf build
