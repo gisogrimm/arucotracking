@@ -193,7 +193,7 @@ int main(int argc, char *argv[]) {
 
             if(estimatePose) {
                 for(unsigned int i = 0; i < ids.size(); i++)
-		  std::cout << frameNo << ", " << i 
+		  std::cout << frameNo << ", " << ids[i] 
 			    << ", " << rvecs[i][0] << ", " << rvecs[i][1] << ", " << rvecs[i][2]
 			    << ", " << tvecs[i][0] << ", " << tvecs[i][1] << ", " << tvecs[i][2] << std::endl;
             }
