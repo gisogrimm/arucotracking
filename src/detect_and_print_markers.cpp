@@ -187,10 +187,6 @@ int main(int argc, char *argv[]) {
         double currentTime = ((double)getTickCount() - tick) / getTickFrequency();
         totalTime += currentTime;
         totalIterations++;
-        if(totalIterations % 30 == 0) {
-            cout << "Detection Time = " << currentTime * 1000 << " ms "
-                 << "(Mean = " << 1000 * totalTime / double(totalIterations) << " ms)" << endl;
-        }
 
         // draw results
         if(ids.size() > 0) {
@@ -202,9 +198,10 @@ int main(int argc, char *argv[]) {
 			    << ", " << tvecs[i][0] << ", " << tvecs[i][1] << ", " << tvecs[i][2] << std::endl;
             }
         }
-
-        char key = (char)waitKey(waitTime);
-        if(key == 27) break;
+	if( waitTime ){
+	  char key = (char)waitKey(waitTime);
+	  if(key == 27) break;
+	}
 	++frameNo;
     }
 
