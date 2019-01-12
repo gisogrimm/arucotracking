@@ -1,19 +1,46 @@
 function load_and_plot_data( name, marker )
-  s = load([name,'.csv']);
-  data = s.(name);
+  data = load([name,'.csv']);
+  if isstruct(data)
+    data = data.(name);
+  end
   if nargin < 2
-    marker = unique(data(:,2))
+    marker = unique(data(:,2));
   end
-  figure('Name',name);
-  subplot(2,1,1);
-  for m=marker
+  figure('Name',[name,' rotation z']);
+  for k=1:numel(marker)
+    m = marker(k);
     idx = find(data(:,2)==m);
-    plot(data(idx,1),unwrap(data(idx,3:5))*180/pi);
+    ldata = data(idx,:);
+    ldata(:,3:5) = unwrap(ldata(:,3:5));
+    idx = find(diff(ldata(:,1))~=1);
+    for l=idx(end:-1:1)'
+      ldata = [ldata(1:l,:);...
+	       [ldata(l,1)+1,m,nan,nan,nan,nan,nan,nan];...
+	       ldata(l+1:end,:)];
+    end
+    plot(ldata(:,1),ldata(:,5)*180/pi,'o-',...
+	  'LineWidth',1.5);
     hold on;
   end
-  subplot(2,1,2);
-  for m=marker
+  legend(num2str(marker));
+  figure('Name',[name,' translation']);
+  for k=1:numel(marker)
+    m = marker(k);
     idx = find(data(:,2)==m);
-    plot(data(idx,1),data(idx,6:8));
+    ldata = data(idx,:);
+    idx = find(diff(ldata(:,1))~=1);
+    for l=idx(end:-1:1)'
+      ldata = [ldata(1:l,:);...
+	       [ldata(l,1)+1,m,nan,nan,nan,nan,nan,nan];...
+	       ldata(l+1:end,:)];
+    end
+    plot3(ldata(:,6),ldata(:,7),ldata(:,8),'o-',...
+	  'LineWidth',1.5);
     hold on;
   end
+  legend(num2str(marker));
+  plot3([0,0.1],[0,0],[0,0],'r-');
+  plot3([0,0],[0,0.1],[0,0],'g-');
+  plot3([0,0],[0,0],[0,0.1],'b-');
+  text(0,0,0,'cam');
+  set(gca,'DataAspectRatio',[1,1,1]);
