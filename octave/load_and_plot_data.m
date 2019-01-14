@@ -1,4 +1,4 @@
-function load_and_plot_data( name, marker )
+function cData = load_and_plot_data( name, marker )
   data = load([name,'.csv']);
   if isstruct(data)
     data = data.(name);
@@ -7,6 +7,7 @@ function load_and_plot_data( name, marker )
     marker = unique(data(:,2));
   end
   figure('Name',[name,' rotation z']);
+  cData = {};
   for k=1:numel(marker)
     m = marker(k);
     idx = find(data(:,2)==m);
@@ -18,6 +19,7 @@ function load_and_plot_data( name, marker )
 	       [ldata(l,1)+1,m,nan,nan,nan,nan,nan,nan];...
 	       ldata(l+1:end,:)];
     end
+    cData{k} = struct('data',ldata,'marker',m);
     plot(ldata(:,1),ldata(:,5)*180/pi,'o-',...
 	  'LineWidth',1.5);
     hold on;
@@ -44,3 +46,4 @@ function load_and_plot_data( name, marker )
   plot3([0,0],[0,0],[0,0.1],'b-');
   text(0,0,0,'cam');
   set(gca,'DataAspectRatio',[1,1,1]);
+  
