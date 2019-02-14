@@ -1,4 +1,4 @@
-PACKAGES = opencv
+PACKAGES = opencv liblo
 
 PKGFLAGS = $(shell pkg-config --cflags $(PACKAGES))
 PKGLIBS += $(shell pkg-config --libs $(PACKAGES))
@@ -9,7 +9,7 @@ TARGETS = calibrate_camera_charuco calibrate_camera		\
 	create_board_charuco create_board create_diamond	\
 	create_marker detect_board_charuco detect_board		\
 	detect_diamonds detect_markers detect_and_print_markers	\
-	detector_params.yml
+	detector_params.yml detect_and_send_markers
 
 all: build src $(patsubst %,build/%,$(TARGETS))
 
@@ -36,3 +36,4 @@ dep:
 
 clean:
 	rm -Rf build
+
