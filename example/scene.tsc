@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<session license="CC0">
+  <scene guiscale="40" guitracking="obj34">
+    <source name="obj1" color="#ff0000">
+      <sound/>
+    </source>
+    <source name="obj2" color="#ff0000">
+      <sound/>
+    </source>
+    <source name="obj3" color="#ff0000">
+      <sound/>
+    </source>
+    <source name="obj4" color="#ff0000">
+      <sound/>
+    </source>
+    <source name="obj5" color="#00ff00">
+      <sound/>
+    </source>
+    <source name="obj6" color="#00ff00">
+      <sound/>
+    </source>
+    <source name="obj7" color="#00ff00">
+      <sound/>
+    </source>
+    <source name="obj8" color="#00ff00">
+      <sound/>
+    </source>
+    <source name="obj9" color="#0000ff">
+      <sound/>
+    </source>
+    <source name="obj10" color="#0000ff">
+      <sound/>
+    </source>
+    <source name="obj11" color="#0000ff">
+      <sound/>
+    </source>
+    <source name="obj12" color="#0000ff">
+      <sound/>
+    </source>
+    <source name="obj13" color="#ffff00">
+      <sound/>
+    </source>
+    <source name="obj14" color="#ffff00">
+      <sound/>
+    </source>
+    <source name="obj15" color="#ffff00">
+      <sound/>
+    </source>
+    <source name="obj16" color="#ffff00">
+      <sound/>
+    </source>
+    <!-- purple -->
+    <source name="obj17" color="#cc00cc">
+      <sound/>
+    </source>
+    <source name="obj18" color="#cc00cc">
+      <sound/>
+    </source>
+    <source name="obj19" color="#cc00cc">
+      <sound/>
+    </source>
+    <source name="obj20" color="#cc00cc">
+      <sound/>
+    </source>
+    <receiver name="obj34"/>
+  </scene>
+</session>
