@@ -42,6 +42,9 @@
 #include <opencv2/calib3d.hpp>
 #include <lo/lo.h>
 #include <iostream>
+#include <map>
+
+#define RAD2DEG 57.29577951308232286464
 
 using namespace std;
 using namespace cv;
@@ -59,7 +62,10 @@ namespace {
     "{l        | 0.1   | Marker side lenght (in meters). Needed for correct scale in camera pose }"
     "{dp       |       | File of marker detector parameters }"
     "{r        |       | show rejected candidates too }"
-    "{url      | osc.udp://localhost:9999/ | OSC destination URL }";
+    "{url      | osc.udp://localhost:9999/ | OSC destination URL }"
+    "{fmt      | /marker%d | OSC path, must contain exactly one %d }"
+    "{norot    |        | no rotation }"
+    "{smooth    | 0       | smooth positions }";
 }
 
 /**
@@ -137,6 +143,13 @@ int main(int argc, char *argv[]) {
   bool showRejected = parser.has("r");
   bool estimatePose = parser.has("c");
   float markerLength = parser.get<float>("l");
+  String sfmt("/marker%d");
+  if( parser.has("fmt") )
+    sfmt = parser.get<String>("fmt");
+  bool norot = parser.has("norot");
+  float smooth(0);
+  if(parser.has("smooth"))
+    smooth = parser.get<float>("smooth");
 
   Ptr<aruco::DetectorParameters> detectorParams = aruco::DetectorParameters::create();
   if(parser.has("dp")) {
@@ -194,6 +207,7 @@ int main(int argc, char *argv[]) {
   int totalIterations = 0;
 
   int frameNo = 0;
+  std::map<int,Vec3d> positions;
 
   while(inputVideo.grab()) {
     Mat image;
@@ -225,10 +239,15 @@ int main(int argc, char *argv[]) {
 	  cv::Rodrigues( rvecs[i], rot_mat );
 	  rotmat2euler( rot_mat, rot_euler );
 	  char ctmp[1024];
-	  sprintf(ctmp,"/marker%d",ids[i]);
-	  lo_send( lotarget, ctmp, "ffffff",
-		   tvecs[i][0], tvecs[i][1], tvecs[i][2], 
-		   rot_euler[0], rot_euler[1], rot_euler[2] );
+	  sprintf(ctmp,sfmt.c_str(),ids[i]);
+	  positions[ids[i]] = smooth*positions[ids[i]] + (1.0f-smooth)*tvecs[i];
+	  if( norot )
+	    lo_send( lotarget, ctmp, "fff",
+		     positions[ids[i]][0], positions[ids[i]][1], positions[ids[i]][2] );
+	  else
+	    lo_send( lotarget, ctmp, "ffffff",
+		     positions[ids[i]][0], positions[ids[i]][1], positions[ids[i]][2],
+		     RAD2DEG*rot_euler[0], RAD2DEG*rot_euler[1], RAD2DEG*rot_euler[2] );
 	}
       }
     }
