@@ -11,6 +11,8 @@ TARGETS = calibrate_camera_charuco calibrate_camera		\
 	detect_diamonds detect_markers detect_and_print_markers	\
 	detector_params.yml detect_and_send_markers
 
+DEPENDS = build-essential opencv-doc libopencv-dev liblo-dev
+
 all: build src $(patsubst %,build/%,$(TARGETS))
 
 build:
@@ -32,7 +34,7 @@ build/%: src/%
 	cp $< $@
 
 dep:
-	sudo apt-get install build-essential opencv-doc libopencv-dev
+	sudo apt-get install $(DEPENDS)
 
 clean:
 	rm -Rf build
