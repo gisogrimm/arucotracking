@@ -1,8 +1,8 @@
 # arucotracking
 
 This repository is a wrapper around the OpenCV 3dcalib toolkit. For
-installation, clone or unzip the repository, and type "make dep", then
-"make".
+installation, clone or unzip the repository, and type `make dep`, then
+`make`.
 
 # Examples:
 
@@ -50,3 +50,7 @@ Print at 72 dpi to get one inch markers.
 `--url` is the OSC destination
 
 `--fmt` is the path format, it needs one `%d` occurence which will be replaced by the marker number
+
+`--norot` deactivates transmission of rotation
+
+`--smooth=0.9` sets the smoothing coefficient to 0.9; for no smoothing use 0
