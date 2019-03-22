@@ -210,7 +210,7 @@ int main(int argc, char *argv[]) {
   std::map<int,Vec3d> positions;
 
   while(inputVideo.grab()) {
-    Mat image;
+    Mat image, imageCopy;
     inputVideo.retrieve(image);
 
     double tick = (double)getTickCount();
@@ -232,9 +232,13 @@ int main(int argc, char *argv[]) {
     totalIterations++;
 
     // draw results
+    image.copyTo(imageCopy);
     if(ids.size() > 0) {
 
       if(estimatePose) {
+	for(unsigned int i = 0; i < ids.size(); i++)
+	  aruco::drawAxis(imageCopy, camMatrix, distCoeffs, rvecs[i], tvecs[i],
+			  markerLength * 0.5f);
 	for(unsigned int i = 0; i < ids.size(); i++){
 	  cv::Rodrigues( rvecs[i], rot_mat );
 	  rotmat2euler( rot_mat, rot_euler );
@@ -243,14 +247,15 @@ int main(int argc, char *argv[]) {
 	  positions[ids[i]] = smooth*positions[ids[i]] + (1.0f-smooth)*tvecs[i];
 	  if( norot )
 	    lo_send( lotarget, ctmp, "fff",
-		     positions[ids[i]][0], positions[ids[i]][1], positions[ids[i]][2] );
+		     positions[ids[i]][0], -positions[ids[i]][1], -positions[ids[i]][2] );
 	  else
 	    lo_send( lotarget, ctmp, "ffffff",
-		     positions[ids[i]][0], positions[ids[i]][1], positions[ids[i]][2],
+		     positions[ids[i]][0], -positions[ids[i]][1], -positions[ids[i]][2],
 		     RAD2DEG*rot_euler[0], RAD2DEG*rot_euler[1], RAD2DEG*rot_euler[2] );
 	}
       }
     }
+    imshow("out", imageCopy);
     if( waitTime ){
       char key = (char)waitKey(waitTime);
       if(key == 27) break;
