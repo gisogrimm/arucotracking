@@ -4,6 +4,8 @@ This repository is a wrapper around the OpenCV 3dcalib toolkit. For
 installation, clone or unzip the repository, and type `make dep`, then
 `make`.
 
+See also [Detection of ArUco Markers](https://docs.opencv.org/trunk/d5/dae/tutorial_aruco_detection.html) at the opencv documentation.
+
 # Examples:
 
 ## Create a marker board:
@@ -27,6 +29,20 @@ installation, clone or unzip the repository, and type `make dep`, then
 Print at 72 dpi to get one inch markers.
 
 ## Generate camera calibration:
+
+`--ci` camera input device
+
+`-d=10` dictionary
+
+`-h=7` seven markers in Y direction
+
+`-w=5` five markers in X direction
+
+`-l=0.0254` length of marker in output units (e.g., m)
+
+`-s=0.0127` separation of markers
+
+`--pc=true` fix principal point
 
 
 
