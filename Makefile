@@ -1,4 +1,4 @@
-PACKAGES = opencv liblo
+PACKAGES = opencv4 liblo
 
 PKGFLAGS = $(shell pkg-config --cflags $(PACKAGES))
 PKGLIBS += $(shell pkg-config --libs $(PACKAGES))
