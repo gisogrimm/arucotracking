@@ -2,7 +2,7 @@ PACKAGES = opencv4 liblo
 
 PKGFLAGS = $(shell pkg-config --cflags $(PACKAGES))
 PKGLIBS += $(shell pkg-config --libs $(PACKAGES))
-CXXFLAGS += $(PKGFLAGS)
+CXXFLAGS += $(PKGFLAGS) -I/usr/share/doc/opencv-doc/examples/aruco/
 LDLIBS += $(PKGLIBS)
 
 TARGETS = calibrate_camera_charuco calibrate_camera		\
@@ -10,6 +10,12 @@ TARGETS = calibrate_camera_charuco calibrate_camera		\
 	create_marker detect_board_charuco detect_board		\
 	detect_diamonds detect_markers detect_and_print_markers	\
 	detector_params.yml detect_and_send_markers
+
+#TARGETS = calibrate_camera		\
+#	create_board	\
+#	create_marker detect_board		\
+#	detect_markers detect_and_print_markers	\
+#	detector_params.yml detect_and_send_markers
 
 DEPENDS = build-essential opencv-doc libopencv-dev liblo-dev
 
