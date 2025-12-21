@@ -11,6 +11,6 @@
       <osc path="/field" size="2" ignorefirst="true"/>
       <osc path="/obj0" size="3"/>
     </datalogging>
-    <system command="../build/detect_and_send_markers -d=10 -l=2.54 --ci=0 -c=../camera.calib --url=osc.udp://localhost:9877/ --fmt=/obj%d --norot --smooth=0"/>
+    <system command="../build/detect_and_send_markers -d=10 -l=2.54 --ci=0 -c=camera.calib --url=osc.udp://localhost:9877/ --fmt=/obj%d --norot --smooth=0"/>
   </modules>
 </session>
