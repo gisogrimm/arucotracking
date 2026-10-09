@@ -4,7 +4,7 @@ This repository is a wrapper around the OpenCV 3dcalib toolkit. For
 installation, clone or unzip the repository, and type `make dep`, then
 `make`.
 
-See also [Detection of ArUco Markers](https://docs.opencv.org/trunk/d5/dae/tutorial_aruco_detection.html) at the opencv documentation.
+See also [Detection of ArUco Markers](https://docs.opencv.org/4.10.0/de/d67/group__objdetect__aruco.html) at the opencv documentation.
 
 # Examples:
 
