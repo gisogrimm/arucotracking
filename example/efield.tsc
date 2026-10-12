@@ -5,6 +5,12 @@
       <plugins>
         <feedbackdelay f="50" feedback="0.9"/>
         <level2osc sendwhilestopped="true" tau="0.2" path="/field" url="osc.udp://localhost:9877"/>
+        <level2osc sendwhilestopped="true" firstpar="70" tau="0.05" mode="rms" path="/tone/ap0/sawtooth/af" url="osc.udp://localhost:9877"/>
+      </plugins>
+    </route>
+    <route name="tone" channels="1" connect_out="system:playback_1">
+      <plugins>
+	<sawtooth a="0" fscale="1800"/>
       </plugins>
     </route>
     <datalogging>

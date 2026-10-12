@@ -200,10 +200,15 @@ int main(int argc, char *argv[]) {
     waitTime = 0;
   } else {
     inputVideo.open(camId);
+    // for use with gstreamer:
+    //inputVideo.open("v4l2src ! image/jpeg, width=1920, height=1080,framerate=30/1 ! jpegdec ! videoconvert ! video/x-raw, format=BGR ! appsink ");
+    
+    // set image sizte:
     //inputVideo.set(cv::CAP_PROP_FRAME_WIDTH, 1920 );
     //inputVideo.set(cv::CAP_PROP_FRAME_HEIGHT, 1080 );
-    inputVideo.set(cv::CAP_PROP_FRAME_WIDTH, 1280 );
-    inputVideo.set(cv::CAP_PROP_FRAME_HEIGHT, 960 );
+    //inputVideo.set(cv::CAP_PROP_FRAME_WIDTH, 1280 );
+    //inputVideo.set(cv::CAP_PROP_FRAME_HEIGHT, 960 );
+    
     waitTime = 10;
   }
 
